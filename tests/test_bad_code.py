@@ -1,5 +1,5 @@
 import pytest
-from src.good_code import Calculator as GoodCalculator
+from src.good_code import Calculator as GoodCalculator, main
 from src.bad_code import Calculator as BadCalculator
 
 
@@ -16,6 +16,10 @@ def test_good_divide():
     calc = GoodCalculator()
     assert calc.divide(8, 2) == 4
     assert calc.divide(5, 0) is None
+
+def test_main():
+    val = main()
+    assert val == True
 
 
 # Tests for bad code

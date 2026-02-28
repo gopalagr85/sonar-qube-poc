@@ -24,6 +24,7 @@ def main():
     print(calc.add(5, 3))
     print(calc.subtract(10, 7))
     print(calc.divide(8, 2))
+    return True
 
 
 if __name__ == "__main__":
