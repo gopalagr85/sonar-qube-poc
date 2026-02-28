@@ -1,114 +1,24 @@
-class DataProcessor:
-    """ This the test class name"""
+"""Bad code example"""
 
-    def process_data(self, data):
-        x = 10
-        y = 20
-        if x == 10 and y == 20:
-            print("Hello")
-            if x < y:
-                try:
-                    print(data["non_existent_key"])
-                except:
-                    pass
+class Calculator:
+    """Calculator class with quality issues"""
 
-        return True
-
-    def summation(self, x, y):
-        """ test func"""
+    def add(self, x, y):
+        # no docstring, unused variables
+        a = 10
+        b = 20
+        if a == 10 and b == 20:
+            print("Adding numbers")  # unnecessary print
         return x + y
 
-    def duplicate_detection(self):
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
-        x = 10
-        y = 20
-        z = 30
-        a = x + y + z
-        b = a * 2
-        c = b - 5
-        d = c / 3
-        e = d + 100
-        f = e * 2
-        g = f - 1
-        h = g * 5
-        i = h + 9
+    def subtract(self, x, y):
+        # poor formatting, empty except block
+        try:
+            result = x - y
+        except:
+            pass
+        return x - y
 
-
-def main():
-    """ This the test function name"""
-    dp = DataProcessor()
-    dp.process_data({})
-
-if __name__ == "__main__":
-    main()
+    def divide(self, x, y):
+        # division by zero not handled properly
+        return x / y
