@@ -22,3 +22,4 @@ class Calculator:
     def divide(self, x, y):
         # division by zero not handled properly
         return x / y
+

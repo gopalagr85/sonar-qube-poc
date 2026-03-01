@@ -1,0 +1,112 @@
+# Python & Django Rest Framework (DRF) Coding Standard Documentation
+# Focus: Readability, Modularity, Scalability, and Security
+
+version: "1.0"
+last_updated: 2026-03-01
+
+coding_guidelines:
+  naming_conventions:
+    variables: "snake_case (e.g., user_profile_id)"
+    functions: "snake_case (lowercase with underscores)"
+    constants: "UPPER_SNAKE_CASE (e.g., MAX_RETRY_ATTEMPTS)"
+    classes: "PascalCase / CapWords (e.g., UserRegistrationView)"
+    methods: "snake_case (non-public methods must start with an underscore: _internal_method)"
+    modules_packages: "lowercase (e.g., user_auth)"
+    filenames: "snake_case.py"
+    endpoints: "kebab-case or snake_case (consistent across API)"
+    enums: "Use enums instead of using the magic numbers"
+    dry: "Don't Repeat Yourself. Use tools to detect and eliminate duplicate logic."
+    documentation: "Every function and class MUST have a Google-style or ReST docstring."
+    restrictions:
+      - "Avoid single-character names except for loop counters (i, j, k) or coordinates (x, y, z)."
+      - "Avoid Python built-in keywords/functions (list, str, dict, print)."
+
+  enforcement_tools:
+    linter_formatter:
+      primary_tool: "Ruff (Replaces Flake8, Black, and Isort)"
+      features: "Detects syntax errors, unused imports, undefined names and enforces PEP 8."
+      integration: "SonarLint (for visual indicators in the IDE)."
+
+  security_and_devops:
+    security:
+      sensitive_data: "Sensitive data (API keys, DB passwords) must NOT be committed to Git. Use .env files."
+      sql_vulnerability:
+        - "Never use string formatting for queries."
+        - "Queries MUST be parameterized to prevent SQL Injection."
+      database_connection: "Use environment variables for DB credentials. Use Django ORM for Postgres (On-prem/Cloud)."
+
+  architecture_principles:
+    exception: "use the structured way to handle the exception"
+    logging: "use the proper logging so easily we can debug the issue"
+    srp: "Single Responsibility Principle. Every function and class should have one primary purpose."
+    type_hints: "Use TypeHints (MyPy) to ensure coding consistency and catch errors early."
+    focus: "code have to follow the Readability, modularity, scalability"
+
+
+  django_rest_framework_specifics:
+    documentation: "Use DRF Swagger (drf-spectacular) for automated API documentation."
+    logic_placement: "Keep views thin; move complex logic to Services or Selectors."
+    data_handling: "Use Enums for choices and status fields to avoid hardcoded strings."
+
+
+
+  dependency_management:
+    tool: "pip with requirements.txt or Poetry"
+    practice: "Pin versions to ensure environment consistency."
+
+  git_workflow:
+    commit_strategy: "Commit small, incremental changes rather than massive code dumps."
+    commit_message_format: "Feat/Fix/Chore: [Short Description] - Reference ticket ID if applicable."
+
+quality_assurance:
+  testing:
+    unit_tests: "Mandatory for all business logic."
+    coverage: "Maintain high coverage; use 'coverage.py' to generate reports."
+  
+  complexity_metrics:
+    tool: "Radon"
+    maintainability_index:
+      - "A (100-80): Excellent"
+      - "B (80-60): Good"
+      - "C (60-40): Fair"
+    cyclomatic_complexity:
+      - "A (1–5): Low (Target)"
+      - "B (6–10): Moderate"
+      - "C (11–20): High (Consider Refactoring)"
+      - "F (50+): Untestable/Dangerous"
+
+
+
+  pycharm_configuration_ruff:
+    step_1_install_plugin: "File -> Settings -> Plugins -> Marketplace -> Search 'Ruff'"
+    step_2_install_package: "pip install ruff"
+    step_3_settings:
+      enable_ruff: true
+      run_on_save: true
+      config_file: "pyproject.toml"
+    step_4_config_file:
+      filename: "pyproject.toml"
+      content: |
+        [tool.ruff]
+        line-length = 88
+        select = ["E", "F", "I"]
+        fix = true
+
+  automation_hooks:
+    pre_commit_script: |
+      #!/bin/bash
+      echo "Generating quality report..."
+      python generate_quality_report.py
+      echo "Adding quality scores to files..."
+      python add_quality_todos.py
+      git add quality_report.html
+
+project_structure:
+  recommended:
+    - "root/"
+    - "  manage.py"
+    - "  pyproject.toml"
+    - "  apps/ (project-specific apps)"
+    - "  core/ (settings, wsgi, asgi)"
+    - "  tests/ (unit and integration tests)"
+    - "  docs/ (API and project documentation)"
