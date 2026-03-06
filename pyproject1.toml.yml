@@ -1,0 +1,157 @@
+[tool.ruff]
+# Basic Settings
+line-length = 120           # Maximum characters per line (default: 88)
+target-version = "py311"    # Python version for syntax compatibility
+exclude = [                 # Directories/files to ignore
+    "migrations",
+    "venv",
+    ".git",
+    ".venv",
+    "__pycache__",
+    "*.pyc",
+    "staticfiles",
+    "media"
+]
+
+# File selection
+extend-exclude = ["legacy_code/"]  # Additional exclusions
+include = ["*.py", "*.pyi"]        # File patterns to check
+
+# Performance
+cache-dir = ".ruff_cache"          # Cache location for faster runs
+
+# Output
+output-format = "concise"          # Options: "text", "json", "junit", "grouped"
+show-fixes = true                  # Show available auto-fixes
+
+[tool.ruff.lint]
+# Rule Selection
+select = [
+    "E",      # pycodestyle errors
+    "F",      # Pyflakes
+    "I",      # isort (import sorting)
+    "N",      # pep8-naming
+    "D",      # pydocstyle - DOCSTRINGS
+    "W",      # pycodestyle warnings
+    "UP",     # pyupgrade (modern Python syntax)
+    "A",      # flake8-builtins (PREVENTS SHADOWING BUILT-INS)
+    "B",      # flake8-bugbear (common bugs)
+    "C4",     # flake8-comprehensions
+    "DJ",     # flake8-django (Django-specific)
+    "S",      # flake8-bandit (security)
+    "T20",    # flake8-print (detect print statements)
+    "RUF",    # Ruff-specific rules
+]
+
+# Built-in shadowing rules (A-series)
+# A001: Variable is shadowing a Python builtin
+# A002: Argument is shadowing a Python builtin
+# A003: Class attribute is shadowing a Python builtin
+# A004: Import is shadowing a Python builtin
+# A005: Module is shadowing a Python builtin
+
+# Rules to ignore
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "N806",   # Variable name should be lowercase
+    "DJ001",  # Avoid using null=True on string fields
+    "D203",   # 1 blank line required before class docstring (conflicts with D211)
+    "D213",   # Multi-line docstring summary should start at second line (conflicts with D212)
+]
+
+# DISABLE AUTO-FIX - Make all rules unfixable
+# Empty list = nothing can be auto-fixed
+
+# rules which are auto fixable
+fixable = ["I"] # Only isort (import sorting)
+# rules which are not auto fixable
+unfixable = [
+    "E",      # pycodestyle errors
+    "F",      # Pyflakes
+    "N",      # pep8-naming
+    "D",      # pydocstyle - DOCSTRINGS
+    "W",      # pycodestyle warnings
+    "UP",     # pyupgrade (modern Python syntax)
+    "A",      # flake8-builtins (PREVENTS SHADOWING BUILT-INS)
+    "B",      # flake8-bugbear (common bugs)
+    "C4",     # flake8-comprehensions
+    "DJ",     # flake8-django (Django-specific)
+    "S",      # flake8-bandit (security)
+    "T20",    # flake8-print (detect print statements)
+    "RUF",    # Ruff-specific rules
+]
+
+[tool.ruff.lint.flake8-builtins]
+# Specify additional builtins to protect (beyond Python's defaults)
+builtins-ignorelist = [] # Add exceptions if needed ex: ["str", "int"]
+
+# Per-file ignores
+[tool.ruff.lint.per-file-ignores]
+# F401: Unused imports in __init__.py
+# D104: Missing docstring in public package
+"__init__.py" = ["F401", "D104"]
+
+# Long lines in settings
+"settings.py" = ["E501"]
+
+# ALLOW to assert and hardcoded passwords in tests
+# D10X: ALLOW missing docstrings in tests
+"tests/*.py" = ["S101", "S106", "D100", "D101", "D102", "D103"]
+
+# Ignore Django rules in migrations
+# Ignore all docstring rules in migrations
+"migrations/*.py" = ["E501", "DJ", "D", "N", "A"]
+
+# No module docstring for manage.py
+"manage.py" = ["D100"]
+
+# Optional: More granular control
+#[tool.ruff.lint]
+# Require docstrings for:
+# D100: public modules
+# D101: public classes
+# D102: public methods
+# D103: public functions
+# D104: public packages
+# D105: magic methods
+# D106: nested classes
+# D107: __init__ methods
+
+# Strict naming enforcement
+#[tool.ruff.lint.pep8-naming]
+#classmethod-decorators = ["classmethod"]
+#staticmethod-decorators = ["staticmethod"]
+# ALL constants must be UPPER_CASE
+# ALL variables must be lower_case
+# ALL classes must be PascalCase
+# ALL functions must be snake_case
+
+[tool.ruff.lint.isort]
+# Import sorting configuration
+known-first-party = ["one_ch_core", "bear_one_claimhub"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder"
+]
+lines-after-imports = 2     # Blank lines after imports
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10         # Maximum cyclomatic complexity
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"       # Docstring style: "google", "numpy", "pep257"
+
+# REMOVE OR COMMENT OUT THIS ENTIRE SECTION TO DISABLE FORMATTING
+#[tool.ruff.format]
+#quote-style = "double"
+#indent-style = "space"
+
+[tool.ruff.format]
+# Formatting options
+quote-style = "double"           # Use double quotes
+indent-style = "space"           # Use spaces (not tabs)
+skip-magic-trailing-comma = false # Respect trailing commas
+line-ending = "auto"             # Auto-detect line endings
